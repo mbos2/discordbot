@@ -1,0 +1,12 @@
+{
+  "modules": [
+    {
+      "name": "audit-log",
+      "isEnabled": true
+    },
+    {
+      "name": "w3sgoogle",
+      "isEnabled": true
+    }
+  ]
+}
