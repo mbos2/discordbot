@@ -11,5 +11,9 @@ export default {
       'GuildMessageTyping'
 		]
 	},
-	plugins: []
+	plugins: [],
+  sage: {
+    errorChannelId: '1123381317338415124' // dev
+    // errorChannelId: '1121852107943841802' // Production
+  }
 }

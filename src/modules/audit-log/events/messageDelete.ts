@@ -5,7 +5,6 @@ import messageUtil from './utilities/message-template.js';
 export default async (message: Message) => {
   const attachmentsArray = [];
   if(message.attachments.size > 0) {
-    console.log(message.attachments)
     message.attachments.map(attachment => {
       const att = new AttachmentBuilder(attachment.url)
       attachmentsArray.push(att);

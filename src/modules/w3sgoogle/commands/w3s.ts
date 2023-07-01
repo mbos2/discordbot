@@ -36,9 +36,6 @@ export default async (event) => {
     await event.reply({embeds: [messageTemplate]});
   } catch (error) {
     console.log(error.code)
-    // if (error.code === 'InteractionAlreadyReplied') {
-      await event.editReply({embeds: [messageTemplate]});
-    // }
+    await event.editReply({embeds: [messageTemplate]});
   }
-
 }

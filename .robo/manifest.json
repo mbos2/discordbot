@@ -11,11 +11,14 @@
           "GuildMessageTyping"
         ]
       },
-      "plugins": []
+      "plugins": [],
+      "sage": {
+        "errorChannelId": "1123381317338415124"
+      }
     },
     "type": "robo",
-    "updatedAt": "2023-06-21T13:34:37.032Z",
-    "version": "0.8.3"
+    "updatedAt": "2023-07-01T15:29:11.916Z",
+    "version": "0.8.6"
   },
   "api": {},
   "commands": {
@@ -31,19 +34,98 @@
         }
       ]
     },
+    "changemodulestate": {
+      "__path": "\\.robo\\build\\commands\\changemodulestate.js",
+      "description": "Sets enabled or disabled state of a module",
+      "options": [
+        {
+          "name": "module",
+          "choices": [
+            {
+              "name": "AuditLog",
+              "value": "audit-log"
+            },
+            {
+              "name": "W3SGoogle",
+              "value": "w3sgoogle"
+            },
+            {
+              "name": "MediaChannels",
+              "value": "media-channels"
+            },
+            {
+              "name": "Collector",
+              "value": "collector"
+            }
+          ],
+          "description": "Choose a module",
+          "required": true
+        },
+        {
+          "name": "state",
+          "choices": [
+            {
+              "name": "Enabled",
+              "value": "1"
+            },
+            {
+              "name": "Disabled",
+              "value": "0"
+            }
+          ],
+          "description": "Set a state of a module",
+          "required": true
+        }
+      ]
+    },
+    "checkmodulestates": {
+      "__path": "\\.robo\\build\\commands\\checkmodulestates.js",
+      "description": "Gets a list of all modules and their states"
+    },
+    "collect": {
+      "__module": "collector",
+      "__path": "\\.robo\\build\\modules\\collector\\commands\\collect.js",
+      "description": "Collects a message by a message id and stores it in the database",
+      "options": [
+        {
+          "name": "id",
+          "description": "Message ID",
+          "required": true
+        },
+        {
+          "name": "category",
+          "choices": [
+            {
+              "name": "Idea",
+              "value": "idea"
+            },
+            {
+              "name": "Feedback",
+              "value": "feedback"
+            },
+            {
+              "name": "Question",
+              "value": "question"
+            }
+          ],
+          "description": "Message category",
+          "required": true
+        }
+      ]
+    },
     "dev": {
       "subcommands": {
         "logs": {
           "__path": "\\.robo\\build\\commands\\dev\\logs.js",
           "description": "View most recent logs"
         },
-        "status": {
-          "__path": "\\.robo\\build\\commands\\dev\\status.js",
-          "description": "View status of this Robo"
-        },
         "restart": {
           "__path": "\\.robo\\build\\commands\\dev\\restart.js",
           "description": "Restart this Robo"
+        },
+        "status": {
+          "__path": "\\.robo\\build\\commands\\dev\\status.js",
+          "description": "View status of this Robo"
         }
       }
     },
@@ -51,6 +133,25 @@
       "__auto": true,
       "__path": "\\.robo\\build\\commands\\help.js",
       "description": "Displays a list of commands."
+    },
+    "mediachannel": {
+      "__module": "media-channels",
+      "__path": "\\.robo\\build\\modules\\media-channels\\commands\\mediachannel.js",
+      "description": "Sets a channel as media only channel",
+      "options": [
+        {
+          "name": "channel",
+          "description": "Choose a channel",
+          "required": true
+        }
+      ]
+    },
+    "utils": {
+      "subcommands": {
+        "modules-message-template": {
+          "__path": "\\.robo\\build\\commands\\utils\\modules-message-template.js"
+        }
+      }
     },
     "w3s": {
       "__module": "w3sgoogle",
@@ -73,6 +174,18 @@
     "_start": [
       {
         "__path": "\\.robo\\build\\events\\_start.js"
+      }
+    ],
+    "interactionCreate": [
+      {
+        "__auto": true,
+        "__path": "\\.robo\\build\\events\\interactionCreate\\__robo_interactionCreate.js"
+      }
+    ],
+    "messageCreate": [
+      {
+        "__module": "media-channels",
+        "__path": "\\.robo\\build\\modules\\media-channels\\events\\messageCreate.js"
       }
     ],
     "messageDelete": [
@@ -106,7 +219,11 @@
     "SendMessages",
     "ViewChannel"
   ],
-  "middleware": [],
+  "middleware": [
+    {
+      "__path": "\\.robo\\build\\middleware\\check-and-set-media-channel-permissions.js"
+    }
+  ],
   "scopes": [
     "applications.commands",
     "bot"
