@@ -4,3 +4,4 @@ node_modules
 .robo
 database
 database/database.db
+info.md
