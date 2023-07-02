@@ -57,7 +57,8 @@ const dbService = {
       const query = db.prepare('INSERT OR REPLACE INTO MediaChannel (channelName, channelId) VALUES (?, ?)');
       query.run(channelData.channelName, channelData.channelId);
       return {
-        code: 200
+        code: 200,
+        data: channelData
       }
     } catch (error) {
       console.error('Error executing query:', error);
