@@ -1,7 +1,0 @@
-- create message collector feature that will get message by id and store the content in a database
-- create database table migration +
-- create db service +
-- finish module enabler feature
-- check if audit logs need updates
-- finish meme feature
-- update bot version

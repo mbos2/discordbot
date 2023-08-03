@@ -4,3 +4,10 @@ export const allowedMediaTypes = [
   'image/jpg',
   'image/jpeg',
 ]
+
+export const allowedMediaExtensions = [
+  'webp',
+  'png',
+  'jpg',
+  'jpeg',
+]

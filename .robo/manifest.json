@@ -17,7 +17,7 @@
       }
     },
     "type": "robo",
-    "updatedAt": "2023-07-02T14:33:22.451Z",
+    "updatedAt": "2023-07-09T21:33:58.289Z",
     "version": "0.8.6"
   },
   "api": {},
@@ -115,13 +115,13 @@
     },
     "dev": {
       "subcommands": {
-        "restart": {
-          "__path": "\\.robo\\build\\commands\\dev\\restart.js",
-          "description": "Restart this Robo"
-        },
         "logs": {
           "__path": "\\.robo\\build\\commands\\dev\\logs.js",
           "description": "View most recent logs"
+        },
+        "restart": {
+          "__path": "\\.robo\\build\\commands\\dev\\restart.js",
+          "description": "Restart this Robo"
         },
         "status": {
           "__path": "\\.robo\\build\\commands\\dev\\status.js",
@@ -145,6 +145,11 @@
           "required": true
         }
       ]
+    },
+    "rmeme": {
+      "__module": "memes",
+      "__path": "\\.robo\\build\\modules\\memes\\commands\\rmeme.js",
+      "description": "Sends a random meme from programmerhumor.io"
     },
     "utils": {
       "subcommands": {

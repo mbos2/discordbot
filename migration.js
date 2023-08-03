@@ -40,24 +40,36 @@ const createDatabase = () => {
     collectedAt DATETIME DEFAULT CURRENT_TIMESTAMP
   );`
 
+  const alterCollectedMessagesWithEmbedsPragmaQuery = `
+    PRAGMA table_info('CollectedMessages');
+  `;
   const alterCollectedMessagesWithEmbeds = `
     ALTER TABLE CollectedMessages
     ADD COLUMN embeds TEXT;
   `;
 
   try {
+    // Table creations
     db.prepare(modules);
     db.prepare(auditLogs);
     db.prepare(audtLogsChannels);
     db.prepare(mediaChannels);
     db.prepare(collectedMessages);
-    db.prepare(alterCollectedMessagesWithEmbeds);
     db.exec(modules);
     db.exec(auditLogs);
     db.exec(audtLogsChannels);
     db.exec(mediaChannels);
     db.exec(collectedMessages);
-    db.exec(alterCollectedMessagesWithEmbeds);
+    
+    // Alters
+    
+    const alterCollectedMessagesWithEmbedsPragmaQueryInfo = db.prepare(alterCollectedMessagesWithEmbedsPragmaQuery).all();
+    const collectedMessageEmbedColumnExists = alterCollectedMessagesWithEmbedsPragmaQueryInfo.some((column) => column.name === 'embeds');
+    if (!collectedMessageEmbedColumnExists) {
+      db.prepare(alterCollectedMessagesWithEmbeds);
+      db.exec(alterCollectedMessagesWithEmbeds);
+    }
+
   } catch (error) {
     console.log(error)
   }
