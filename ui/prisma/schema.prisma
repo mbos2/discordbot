@@ -20,6 +20,16 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Challenge {
+  id  String @id @default(cuid())
+  type String
+  data String
+  isPublished Boolean
+  difficulty Int
+  createdAt Int
+  expiresAt Int
+}
+
 model UserSessions {
   id        String   @id @default(cuid())
   tokenId   String   @unique
