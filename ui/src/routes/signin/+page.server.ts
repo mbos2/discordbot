@@ -10,7 +10,6 @@ const prisma = new PrismaClient()
 export const actions = {
   default: async (event: any) => {
     const formData = Object.fromEntries(await event.request.formData());
-    console.log(formData)
     // Verify that we have an email and a password
     if (!formData.username || !formData.password) {
       return fail(400, {
@@ -66,7 +65,7 @@ export const actions = {
               expiresAt: jtwExpirationTime
             }
           }).catch(err => {
-            console.log(err)
+            throw err;
           })
 
           return redirect(308, '/');

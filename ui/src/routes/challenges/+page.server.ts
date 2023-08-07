@@ -1,28 +1,8 @@
-import { fail, redirect } from '@sveltejs/kit';
-import { PrismaClient } from '@prisma/client'
+import challengeService from '$lib/service/challenge.service';
 
-const prisma = new PrismaClient()
+/** @type {import('./$types').PageLoad} */
 
-/** @type {import('./$types').Actions} */
-export const actions = {
-  default: async (event: any) => {
-    const dailyChallenges = await prisma.challenge.findMany({
-      where: {
-        type: 'daily'
-      }
-    });
-
-    const weeklyChallenges = await prisma.challenge.findMany({
-      where: {
-        type: 'weekly'
-      }
-    });
-
-    return {
-      challenges: {
-        daily: dailyChallenges,
-        weekly: weeklyChallenges
-      }
-    }
-  }
-};
+export async function load (event: any) {
+  const challenges = await challengeService.getAllChallenges();
+  return challenges;
+}

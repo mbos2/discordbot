@@ -18,7 +18,6 @@ export const load = async (event: any) => {
             throw redirect(302, '/signin');
           }
           const loggedInUser = await dbService.getUserFromCookieData(verifiedCookie);
-          console.log(loggedInUser)
           return {
             user: loggedInUser
           }
@@ -27,7 +26,6 @@ export const load = async (event: any) => {
           throw redirect(302, '/signin');
         }
       } catch (error) {
-        console.log(error);
         throw redirect(302, '/signin');
       }
     } else if (event.url.pathname === '/signin') {
@@ -44,12 +42,6 @@ export const load = async (event: any) => {
         }
       } else {
         console.log('No auth cookie present')
-      }
-    }
-
-    return {
-      props: {
-        msg: 'HEllo'
       }
     }
 };

@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
@@ -18,16 +19,6 @@ model User {
   isActive  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Challenge {
-  id  String @id @default(cuid())
-  type String
-  data String
-  isPublished Boolean
-  difficulty Int
-  createdAt Int
-  expiresAt Int
 }
 
 model UserSessions {

@@ -11,7 +11,6 @@ const dbService = {
     });
 
     if (session) {
-      console.log(currentTime, ' - ', session.expiresAt)
       if (currentTime > session.expiresAt) {
         return false;
       }

@@ -48,6 +48,19 @@ const createDatabase = () => {
     ADD COLUMN embeds TEXT;
   `;
 
+  const challenges = `CREATE TABLE IF NOT EXISTS Challenge (
+    id TEXT PRIMARY KEY,
+    type TEXT NOT NULL,
+    title TEXT NOT NULL,
+    data TEXT NOT NULL,
+    isPublished INTEGER DEFAULT 0,
+    difficulty INTEGER,
+    createdAt INTEGER,
+    updatedAt INTEGER,
+    publishedAt INTEGER
+  );`
+
+
   try {
     // Table creations
     db.prepare(modules);
@@ -55,12 +68,13 @@ const createDatabase = () => {
     db.prepare(audtLogsChannels);
     db.prepare(mediaChannels);
     db.prepare(collectedMessages);
+    db.prepare(challenges);
     db.exec(modules);
     db.exec(auditLogs);
     db.exec(audtLogsChannels);
     db.exec(mediaChannels);
     db.exec(collectedMessages);
-    
+    db.exec(challenges);
     // Alters
     
     const alterCollectedMessagesWithEmbedsPragmaQueryInfo = db.prepare(alterCollectedMessagesWithEmbedsPragmaQuery).all();

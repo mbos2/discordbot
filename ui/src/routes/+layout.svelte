@@ -34,7 +34,10 @@
 </section>
 <slot></slot>
 
-<style>
+<style global>
+  * {
+    font-family: 'Open Sans', sans-serif;
+  }
   .logged {
     padding: 16px;
     display: flex;
