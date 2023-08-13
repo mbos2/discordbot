@@ -11,7 +11,7 @@
       </a>
     </div>
     <section>
-      <h1 style="text-align: center;">CREATE</h1>
+      <h1 style="text-align: center;">APPROVALS</h1>
       <hr class="center-ball">
     </section>
   </section>

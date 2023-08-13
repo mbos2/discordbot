@@ -35,8 +35,53 @@
 <slot></slot>
 
 <style global>
-  * {
+  :global(*) {
     font-family: 'Open Sans', sans-serif;
+  }
+  :global(h1) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-size: 60px;
+    font-weight: 900;
+    text-align: center;
+  }
+  :global(section) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+    :global(hr) {
+      border: 0;
+      height: 2px;
+      width: 100%;
+      position: relative;
+      margin-bottom: 30px;
+    }
+    :global(hr.center-ball) {
+      background: #059862;
+    }
+
+  :global(.hr-fade) {
+    border: 0;
+    height: 3px;
+    margin:18px 0;
+    position:relative;
+    background: -moz-linear-gradient(left, rgba(5, 152, 98,0) 0%, rgba(5, 152, 98,0) 10%, rgba(5, 152, 98,0.65) 50%, rgba(5, 152, 98,0) 90%, rgba(5, 152, 98,0) 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(left, rgba(5, 152, 98,0) 0%,rgba(5, 152, 98,0) 10%,rgba(5, 152, 98,0.65) 50%,rgba(5, 152, 98,0) 90%,rgba(5, 152, 98,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(5, 152, 98,0) 0%,rgba(5, 152, 98,0) 10%,rgba(5, 152, 98,0.65) 50%,rgba(5, 152, 98,0) 90%,rgba(5, 152, 98,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(5, 152, 98,0) 0%,rgba(5, 152, 98,0) 10%,rgba(5, 152, 98,0.65) 50%,rgba(5, 152, 98,0) 90%,rgba(5, 152, 98,0) 100%); /* IE10+ */
+    background: linear-gradient(left, rgba(5, 152, 98,0) 0%,rgba(5, 152, 98,0) 10%,rgba(5, 152, 98,0.65) 50%,rgba(5, 152, 98,0) 90%,rgba(5, 152, 98,0) 100%); /* W3C */
+  }
+
+  :global(.hr-fade):before {
+    content: "";
+    display: block;
+    border-top: solid 1px #fff;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
   }
   .logged {
     padding: 16px;
@@ -74,7 +119,7 @@
     cursor: pointer;
   }
 
-  .back-btn {
+  :global(.back-btn) {
     background: #1d2a35;
     color: white;
     padding: 8px 16px;

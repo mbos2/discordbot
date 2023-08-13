@@ -24,6 +24,15 @@ const challengeService = {
       throw error;
     }
   },
+  getAllApprovals: async () => {
+    try {
+      const approvals = db.prepare('SELECT * FROM ChallengeApprovals').all();
+  
+      return approvals;
+    } catch (error) {
+      throw error;
+    }
+  },
   getChallengeById: async (id: string) => {
     try {
       const challenge = db.prepare('SELECT * FROM Challenge WHERE id=?').all(id);

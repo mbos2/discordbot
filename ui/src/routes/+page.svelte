@@ -19,17 +19,6 @@
 </section>
 
 <style>
-  hr {
-    border: 0;
-    height: 2px;
-    width: 100%;
-    position: relative;
-    margin-bottom: 30px;
-  }
-  hr.center-ball {
-    background: #059862;
-  }
-
   .container {
     width: 60%;
     margin: 0 auto;
