@@ -21,6 +21,29 @@ export interface CollectedMessage {
   collectedAt?: string | number;
 }
 
+export interface QuoteInstance {
+  id?: string,
+  channelId: string,
+  category: QuoteCategory,
+  isRunning: number,
+  cronId?: string,
+  cronHour: number,
+  createdAt?: number,
+  updatedAt?: number,
+}
+
+export interface Quote {
+  id?: string,
+  text?: string,
+  author?: string,
+}
+
+export enum QuoteCategory {
+  Inspirational = 'inspirational',
+  Programming = 'programming',
+  Advice = 'advice'
+}
+
 export enum CollectedMessageCategory {
   Idea = 'idea',
   Feedback = 'feedback',

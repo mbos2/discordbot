@@ -18,5 +18,9 @@ const updateModulesStatus = () => {
 }
 
 export default async () => {
-  updateModulesStatus()
+  try {
+    updateModulesStatus();
+  } catch (error) {
+    console.log(error)
+  }
 }

@@ -72,6 +72,21 @@ const createDatabase = () => {
     publishedAt INTEGER
   );`;
 
+  const quotesSettings = `CREATE TABLE IF NOT EXISTS QuotesSettings (
+    id TEXT PRIMARY KEY,
+    channelId TEXT NOT NULL,
+    category TEXT UNIQUE NOT NULL,
+    isRunning INTEGER NOT NULL,
+    cronId TEXT UNIQUE NOT NULL,
+    createdAt INTEGER,
+    updatedAt INTEGER
+  );`;
+
+  const alterQuotesSettings = `
+    ALTER TABLE QuotesSettings
+    ADD COLUMN cronHour INTEGER;
+  `;
+
 
   try {
     // Table creations
@@ -82,6 +97,7 @@ const createDatabase = () => {
     db.prepare(collectedMessages);
     db.prepare(challengeApprovals);
     db.prepare(challenges);
+    db.prepare(quotesSettings);
     db.exec(modules);
     db.exec(auditLogs);
     db.exec(audtLogsChannels);
@@ -89,6 +105,7 @@ const createDatabase = () => {
     db.exec(collectedMessages);
     db.exec(challengeApprovals);
     db.exec(challenges);
+    db.exec(quotesSettings);
     // Alters
     
     const alterCollectedMessagesWithEmbedsPragmaQueryInfo = db.prepare(alterCollectedMessagesWithEmbedsPragmaQuery).all();
@@ -97,6 +114,8 @@ const createDatabase = () => {
       db.prepare(alterCollectedMessagesWithEmbeds);
       db.exec(alterCollectedMessagesWithEmbeds);
     }
+    db.prepare(alterQuotesSettings);
+    db.exec(alterQuotesSettings);
 
   } catch (error) {
     console.log(error)
