@@ -31,6 +31,7 @@ export default async (event) => {
   const category = event.options._hoistedOptions[0].value;
   try {
     await stopAndDeleteQuotesJob(category);
+    return { content: `Quotes instance for category ${category} stopped`, ephemeral: true }
   } catch (error) {
     console.log(error)
   }

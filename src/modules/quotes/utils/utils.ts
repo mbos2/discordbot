@@ -2,9 +2,10 @@ import { ToadScheduler, Task, CronJob, SimpleIntervalJob } from 'toad-scheduler'
 import dbService from '../../../db/service/index.js';
 import { QuoteInstance } from '../../../types/types.js';
 import {quotes} from '../data/quotes.js';
+// @ts-ignore
+import { posted_quotes } from '../../../../../statics/posted-quotes.js';
 import path from 'path';
 import fs from 'fs';
-import { postedQuotes } from '../data/posted-quotes.js';
 import { fileURLToPath } from 'url';
 import { QuoteCategory, Quote } from '../../../types/types.js';
 import { AttachmentBuilder, Colors, EmbedBuilder } from 'discord.js';
@@ -88,19 +89,23 @@ export const getInpirationalQuoteOfTheDay = async (): Promise<Quote> => {
 }
 
 const getRandomProgrammingQuote = async (): Promise<Quote> => {
-  const availableQuotes = quotes.filter(quote => !postedQuotes.includes(quote.id));
+  console.log('postedQuotes on Start ->')
+  console.log(posted_quotes)
+  let availableQuotes = quotes.filter(quote => !posted_quotes.includes(quote.id));
+  const postedQuotesFilePath = path.join(__dirname, '../../../../../statics/posted-quotes.js');
 
+  // If there is no quotes left to post, reset posted quotes
   if (availableQuotes.length === 0) {
-    postedQuotes.length = 0;
-    availableQuotes.push(...quotes);
+    console.log('No quotes left to post, resetting posted quotes')
+    fs.writeFileSync(postedQuotesFilePath, `export const posted_quotes = ${JSON.stringify([], null, 2)};`);
+    availableQuotes = quotes;
   }
 
   const randomIndex = Math.floor(Math.random() * availableQuotes.length);
   const selectedQuote = availableQuotes[randomIndex];
 
-  postedQuotes.push(selectedQuote.id);
-  const postedQuotesFilePath = path.join(__dirname, '../data/posted-quotes.js');
-  fs.writeFileSync(postedQuotesFilePath, `export const posted_quotes = ${JSON.stringify(postedQuotes, null, 2)};`);
+  posted_quotes.push(selectedQuote.id);
+  fs.writeFileSync(postedQuotesFilePath, `export const posted_quotes = ${JSON.stringify(posted_quotes, null, 2)};`);
 
   return {
     id: selectedQuote.id,
@@ -110,8 +115,6 @@ const getRandomProgrammingQuote = async (): Promise<Quote> => {
 }
 
 export const createOrStartQuotesJob = async (data: QuoteInstance, event: any, startEvent?: any) => {
-  console.log('data ->')
-  console.log(data)
   const switchQuotesJob = async (category: QuoteCategory) => {
     switch (category) {
       case QuoteCategory.Advice:
@@ -144,10 +147,7 @@ export const createOrStartQuotesJob = async (data: QuoteInstance, event: any, st
           channel = await startEvent.channels.cache.get(data.channelId);
           console.log('Start event provided')
         }
-        console.log('channel ->')
-        console.log(channel)
         const quote = await switchQuotesJob(d.category);
-        console.log(quote)
         const embed = await createQuotesEmbedMessage(d.category, quote);
         await channel.send({ embeds: [embed], files: [file] });
       });
