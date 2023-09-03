@@ -153,16 +153,16 @@ export const createOrStartQuotesJob = async (data: QuoteInstance, event: any, st
         await channel.send({ embeds: [embed], files: [file] });
       });
 
-      const job = new SimpleIntervalJob(
-        { seconds: 15, runImmediately: true },
-        task,
-        {id: data.category}
-      );
-      scheduler.addSimpleIntervalJob(job);
-      // const job = new CronJob({
-      //   cronExpression: `0 ${data.cronHour} * * * *`,
-      // }, task, {id: data.category})
-      // scheduler.addCronJob(job);
+      // const job = new SimpleIntervalJob(
+      //   { seconds: 15, runImmediately: true },
+      //   task,
+      //   {id: data.category}
+      // );
+      // scheduler.addSimpleIntervalJob(job);
+      const job = new CronJob({
+        cronExpression: `0 ${data.cronHour} * * * *`,
+      }, task, {id: data.category});
+      scheduler.addCronJob(job);
       return true;
 
   } catch (error) {
