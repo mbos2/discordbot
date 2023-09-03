@@ -18,7 +18,7 @@
       }
     },
     "type": "robo",
-    "updatedAt": "2023-09-03T19:33:54.224Z",
+    "updatedAt": "2023-09-03T19:45:44.667Z",
     "version": "0.8.7"
   },
   "api": {},
@@ -120,13 +120,13 @@
           "__path": "\\.robo\\build\\commands\\dev\\logs.js",
           "description": "View most recent logs"
         },
-        "status": {
-          "__path": "\\.robo\\build\\commands\\dev\\status.js",
-          "description": "View status of this Robo"
-        },
         "restart": {
           "__path": "\\.robo\\build\\commands\\dev\\restart.js",
           "description": "Restart this Robo"
+        },
+        "status": {
+          "__path": "\\.robo\\build\\commands\\dev\\status.js",
+          "description": "View status of this Robo"
         }
       }
     },

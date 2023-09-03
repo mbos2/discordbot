@@ -18,7 +18,7 @@ const attachmentsPath = path.join(__dirname, '../../../assets/');
 
 const switchEmbedColors = (category: QuoteCategory) => {
   switch (category) {
-    case QuoteCategory.Advice:
+    case QuoteCategory.Funny:
       return Colors.Gold;
     case QuoteCategory.Inspirational:
       return Colors.Green;
@@ -29,8 +29,8 @@ const switchEmbedColors = (category: QuoteCategory) => {
 
 const switchEmbedAttachment = (category: QuoteCategory) => {
   switch (category) {
-    case QuoteCategory.Advice:
-      return 'daily-advice-image';
+    case QuoteCategory.Funny:
+      return 'daily-funny-image';
     case QuoteCategory.Inspirational:
       return 'daily-inspirational-image';
     case QuoteCategory.Programming:
@@ -54,16 +54,22 @@ const createQuotesEmbedMessage = async (category: QuoteCategory, quote: Quote) =
   return quoteEmbed;
 }
 
-const getRandomAdviceQuote = async (): Promise<Quote> => {
+const getRandomFunnyQuote = async (): Promise<Quote> => {
   try {
-    const response = await axios.get('https://api.adviceslip.com/advice');
-    const slip = response.data.slip;
+    const response = await axios.get("https://quotes.rest/qod?category=funny&language=en", {
+      headers: {
+        "Content-type": "application/json",
+        "X-TheySaidSo-Api-Secret": `${process.env.THEY_SAID_SO_API_KEY}`,
+        "Authorization": `Bearer ${process.env.THEY_SAID_SO_API_KEY}`,
+      }
+    });
+    const data = response.data.contents.quotes[0];
     return {
-      id: slip.id,
-      text: slip.advice
+      author: data.author,
+      text: data.quote
     };
   } catch (error) {
-    console.error(error.message);
+    console.error("Error: " + error.message);
   }
 }
 
@@ -72,16 +78,14 @@ export const getInpirationalQuoteOfTheDay = async (): Promise<Quote> => {
     const response = await axios.get("https://quotes.rest/qod?category=inspire&language=en", {
       headers: {
         "Content-type": "application/json",
-        "X-Theysaidso-Api-Secret": `${process.env.THEY_SAID_SO_API_KEY}`,
+        "X-TheySaidSo-Api-Secret": `${process.env.THEY_SAID_SO_API_KEY}`,
         "Authorization": `Bearer ${process.env.THEY_SAID_SO_API_KEY}`,
       }
     });
-    console.log('getInpirationalQuoteOfTheDay ->')
-    console.log(response)
-    // const data = response.data.contents.quotes[0];
+    const data = response.data.contents.quotes[0];
     return {
-      author: 'data.author',
-      text: 'data.quote'
+      author: data.author,
+      text: data.quote
     };
   } catch (error) {
     console.error("Error: " + error.message);
@@ -114,8 +118,8 @@ const getRandomProgrammingQuote = async (): Promise<Quote> => {
 export const createOrStartQuotesJob = async (data: QuoteInstance, event: any, startEvent?: any) => {
   const switchQuotesJob = async (category: QuoteCategory) => {
     switch (category) {
-      case QuoteCategory.Advice:
-        return await getRandomAdviceQuote();
+      case QuoteCategory.Funny:
+        return await getRandomFunnyQuote();
       case QuoteCategory.Inspirational:
         return await getInpirationalQuoteOfTheDay();
       case QuoteCategory.Programming:

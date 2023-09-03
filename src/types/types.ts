@@ -41,7 +41,7 @@ export interface Quote {
 export enum QuoteCategory {
   Inspirational = 'inspirational',
   Programming = 'programming',
-  Advice = 'advice'
+  Funny = 'funny'
 }
 
 export enum CollectedMessageCategory {
