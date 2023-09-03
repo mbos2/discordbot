@@ -90,8 +90,7 @@ export const getInpirationalQuoteOfTheDay = async (): Promise<Quote> => {
 
 const getRandomProgrammingQuote = async (): Promise<Quote> => {
   let availableQuotes = quotes.filter(quote => !posted_quotes.includes(quote.id));
-  const postedQuotesFilePath = path.join(__dirname, '../../../../../../statics/posted-quotes.js');
-
+  const postedQuotesFilePath = path.join(__dirname, '../../../../../statics/posted-quotes.js');
   // If there is no quotes left to post, reset posted quotes
   if (availableQuotes.length === 0) {
     console.log('No quotes left to post, resetting posted quotes')
