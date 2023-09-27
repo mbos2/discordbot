@@ -1,6 +1,7 @@
-import { CommandConfig } from '@roboplay/robo.js';
+import { CommandConfig, CommandResult } from '@roboplay/robo.js';
 import google from 'googlethis';
 import {generateSearchEmbedMessage} from '../utilities/message-template.js';
+import type { CommandInteraction } from 'discord.js';
 
 export const config: CommandConfig = {
   description: 'Searches a w3schools website reference',
@@ -13,7 +14,7 @@ export const config: CommandConfig = {
   ]
 }
 
-export default async (event) => {
+export default async (event: CommandInteraction): Promise<CommandResult> => {
   const options = {
     page: 0, 
     safe: false, // Safe Search
@@ -24,18 +25,15 @@ export default async (event) => {
       num: 5
     }
   }
-    
-  let response = await google.search(`${event.options._hoistedOptions[0].value} site:w3schools.com`, options);
+	const request = event.options.get('request')?.value as string;
+  let response = await google.search(`${request} site:w3schools.com`, options);
   if (!response || response.results.length < 1) {
-    response = await google.search(`${event.options._hoistedOptions[0].value} site:developer.mozilla.org`, options);
+    response = await google.search(`${request} site:developer.mozilla.org`, options);
   }
 
-  const messageTemplate = generateSearchEmbedMessage(response, event.options._hoistedOptions[0].value);
+  const messageTemplate = generateSearchEmbedMessage(response, request);
 
-  try {
-    await event.reply({embeds: [messageTemplate]});
-  } catch (error) {
-    console.log(error.code)
-    await event.editReply({embeds: [messageTemplate]});
-  }
+  return {
+		embeds: [ messageTemplate ]
+	};
 }
