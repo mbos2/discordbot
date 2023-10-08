@@ -18,8 +18,8 @@
       }
     },
     "type": "robo",
-    "updatedAt": "2023-09-03T19:45:44.667Z",
-    "version": "0.8.7"
+    "updatedAt": "2023-10-08T17:34:08.501Z",
+    "version": "0.9.4"
   },
   "api": {},
   "commands": {
@@ -120,13 +120,13 @@
           "__path": "\\.robo\\build\\commands\\dev\\logs.js",
           "description": "View most recent logs"
         },
-        "restart": {
-          "__path": "\\.robo\\build\\commands\\dev\\restart.js",
-          "description": "Restart this Robo"
-        },
         "status": {
           "__path": "\\.robo\\build\\commands\\dev\\status.js",
           "description": "View status of this Robo"
+        },
+        "restart": {
+          "__path": "\\.robo\\build\\commands\\dev\\restart.js",
+          "description": "Restart this Robo"
         }
       }
     },
@@ -169,8 +169,8 @@
               "value": "programming"
             },
             {
-              "name": "Advice",
-              "value": "advice"
+              "name": "Funny",
+              "value": "funny"
             }
           ],
           "description": "Choose quote category",
@@ -298,8 +298,8 @@
               "value": "programming"
             },
             {
-              "name": "Advice",
-              "value": "advice"
+              "name": "Funny",
+              "value": "funny"
             }
           ],
           "description": "Choose quote category",
