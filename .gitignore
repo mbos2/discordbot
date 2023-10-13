@@ -1,11 +1,5 @@
 node_modules
 # Keep environment variables out of version control
 .env
-# robo
-.robo/*
-!.robo/manifest.json
-!.robo/statics
-!.robo/statics/*
-database
-database/database.db
+.env-prod
 info.md
